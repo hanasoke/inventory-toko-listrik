@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('stock_movements', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('product_id')->constrained('products');
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('type', 10); // masuk atau keluar
+            $table->integer('quantity');
+            $table->string('reference_number', 50)->nullable();
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }
