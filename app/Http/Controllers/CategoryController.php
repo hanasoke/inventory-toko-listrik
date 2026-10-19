@@ -32,7 +32,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.form', [
+            'category' => new Category(),
+            'pageTitle' => 'Tambah Kategori',
+        ]);
     }
 
     /**
@@ -40,7 +43,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $validated = $request->validate([
+            'name' => ['required', 'string', 'max:100', 'unique:categories,name'],
+            'description' => ['nullable', 'string'],
+        ]);
+
+        Category::create($validated);
+
+        return redirect()
+            ->route('categories.index')
+            ->with('success', 'Kategori berhasil ditambahkan.');
     }
 
     /**
@@ -54,24 +66,52 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category)
     {
-        //
+        return view('categories.form', [
+            'category' => $category,
+            'pageTitle' => 'Edit Kategori',
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $validated = $request->validate([
+            'name' => [
+                'required',
+                'string',
+                'max:100',
+                Rule::unique('categories', 'name')->ignore($category->id),
+            ],
+            'description' => ['nullable', 'string'],
+        ]);
+
+        $category->update($validated);
+
+        return redirect()
+            ->route('categories.index')
+            ->with('success', 'Kategori berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Category $category)
     {
-        //
+        if($category->products()->exists()) {
+            return back()->with(
+                'error',
+                'Kategori tidak dapat dihapus karena masih memiliki produk.'
+            );
+        }
+
+        $category->delete();
+
+        return redirect()
+            ->route('categories.index')
+            ->with('success', 'Kategori berhasil dihapus');
     }
 }
