@@ -2,16 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $categories = Category::query()
+            ->withCount('products')
+            ->when($request->filled('search'), function($query) use ($request) {
+                $search = $request->input('search');
+
+                $query->where('name', 'like', "%{$search}%");
+            })
+            ->orderBy('name')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('categories.index', compact('categories'));
     }
 
     /**
