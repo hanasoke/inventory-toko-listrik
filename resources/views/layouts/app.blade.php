@@ -33,6 +33,9 @@
                 <a class="nav-link" href="{{ route('categories.index') }}">
                     Kategori
                 </a>
+                <a class="nav-link" href="{{ route('stock-movements.index') }}">
+                    Transaksi Stok
+                </a>
                 <a class="nav-link" href="{{ route('suppliers.index') }}">
                     Supplier
                 </a>
