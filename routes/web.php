@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\StockMovementController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -55,3 +56,15 @@ Route::get('/cek-koneksi', function () {
         ], 500);
     }
 });
+
+Route::get('/stock-movements', [
+    StockMovementController::class, 'index'
+])->name('stock-movements.index');
+
+Route::get('/stock-movements/create', [
+    StockMovementController::class, 'create'
+])->name('stock-movements.create');
+
+Route::post('/stock-movements', [
+    StockMovementController::class, 'store'
+])->name('stock-movements.store');
