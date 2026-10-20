@@ -11,9 +11,24 @@ class SupplierController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+         $suppliers = Supplier::query()
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->input('search');
+
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                        ->orWhere('code', 'like', "%{$search}%")
+                        ->orWhere('phone', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%");
+                });
+            })
+            ->orderBy('name')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('suppliers.index', compact('suppliers'));
     }
 
     /**
@@ -21,7 +36,10 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        return view('suppliers.form', [
+            'supplier' => new Supplier(),
+            'pageTitle' => 'Tambah Supplier',
+        ]);
     }
 
     /**
@@ -29,7 +47,13 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $this->validateSupplier($request);
+
+        Supplier::create($validated);
+
+        return redirect()
+            ->route('suppliers.index')
+            ->with('success', 'Supplier berhasil ditambahkan.');
     }
 
     /**
@@ -43,17 +67,26 @@ class SupplierController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Supplier $suppliers)
     {
-        //
+        return view('suppliers.form', [
+            'supplier' => $supplier,
+            'pageTitle' => 'Edit Supplier',
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Supplier $supplier)
     {
-        //
+        $validated = $this->validateSupplier($request, $supplier);
+
+        $supplier->update($validated);
+
+        return redirect() 
+            ->route('suppliers.index')
+            ->with('success', 'Supplier berhasil diperbarui,');
     }
 
     /**
@@ -61,6 +94,30 @@ class SupplierController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $supplier->delete();
+
+        return redirect()
+            ->route('suppliers.index')
+            ->with('success', 'Supplier berhasil dihapus.');
+    }
+
+    private function validateSupplier(
+        Request $request, 
+        ?Supplier $supplier = null 
+    ): array {
+        return $request->validate([
+            'code' => [
+                'required',
+                'string',
+                'max:30',
+                Rule::unique('suppliers', 'code')
+                    ->ignore($supplier?->id),
+            ], 
+            'name' => ['required', 'string', 'max:150'],
+            'contact_person' => ['nullable', 'string', 'max:100'],
+            'phone' => ['nullable', 'string', 'max:30'],
+            'email' => ['nullable', 'email', 'max:150'],
+            'address' => ['nullable', 'string', 'max:2000'],
+        ]);
     }
 }
