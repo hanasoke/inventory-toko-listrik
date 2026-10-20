@@ -68,3 +68,7 @@ Route::get('/stock-movements/create', [
 Route::post('/stock-movements', [
     StockMovementController::class, 'store'
 ])->name('stock-movements.store');
+
+Route::middleware('auth')->group(function() {
+    Route::resource('suppliers', SupplierController::class);
+});
