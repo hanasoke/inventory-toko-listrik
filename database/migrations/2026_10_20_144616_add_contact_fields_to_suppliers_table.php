@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('suppliers', function (Blueprint $table) {
-            //
+            $table->string('code', 30)->nullable()->unique();
+            $table->string('email', 150)->nullable();
+            $table->string('contact_person', 100)->nullable();
         });
     }
 
@@ -22,7 +24,12 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('suppliers', function (Blueprint $table) {
-            //
+            $table->dropUnique(['code']);
+            $table->dropColumn([
+                'code',
+                'email',
+                'contact_person',
+            ]);
         });
     }
 };
