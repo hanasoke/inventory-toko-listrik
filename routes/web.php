@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\StockMovementController;
+use App\Http\Controllers\PurchaseController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -72,3 +73,6 @@ Route::post('/stock-movements', [
 Route::middleware('auth')->group(function() {
     Route::resource('suppliers', SupplierController::class);
 });
+
+Route::resource('purchases', PurchaseController::class)
+    ->only(['index', 'create', 'store', 'show']);
