@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('supplier_id')
-                ->constrained('suppliers')
-                ->restrictOnDelete();
+                ->constrained('suppliers');
+
+            $table->foreignId('user_id')
+                ->constrained('users');
 
             $table->string('invoice_number', 50)->unique();
             $table->date('purchase_date');
