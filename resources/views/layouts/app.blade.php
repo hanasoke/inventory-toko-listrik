@@ -39,6 +39,9 @@
                 <a class="nav-link" href="{{ route('suppliers.index') }}">
                     Supplier
                 </a>
+                <a class="nav-link {{ request()->routeIs('purchases.*') ? 'active' : '' }}" href="{{ route('purchases.index') }}">
+                    Pembelian
+                </a>
             </div>
 
             <div class="ms-auto text-white">
