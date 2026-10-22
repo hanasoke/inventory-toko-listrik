@@ -86,7 +86,7 @@ class SupplierController extends Controller
 
         return redirect() 
             ->route('suppliers.index')
-            ->with('success', 'Supplier berhasil diperbarui,');
+            ->with('success', 'Supplier berhasil diperbarui.');
     }
 
     /**

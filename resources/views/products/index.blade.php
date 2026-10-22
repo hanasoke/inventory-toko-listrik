@@ -17,6 +17,13 @@
                 <div class="alert alert-danger">{{ session('error') }}</div>
             @endif
 
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            @endif
+
             <form method="GET" class="row g-2 mb-3">
                 <div class="col-12 col-md-5">
                     <input type="search" name="search" class="form-control"
