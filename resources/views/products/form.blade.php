@@ -27,7 +27,7 @@
 
                         @include('products._fields')
 
-                        <button class="btn btn-primary">Simpan Produk</button>
+                        <button class="btn btn-primary float-end">Simpan Produk</button>
                         <a href="{{ route('products.index') }}"
                             class="btn btn-secondary">Kembali</a>
                     </form>

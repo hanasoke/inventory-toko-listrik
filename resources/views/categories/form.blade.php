@@ -42,7 +42,7 @@
                         @enderror
                     </div>
 
-                    <button class="btn btn-primary">Simpan</button>
+                    <button class="btn btn-primary float-end">Simpan</button>
                     <a href="{{ route('categories.index') }}"
                         class="btn btn-secondary">Kembali</a>
                 </form>

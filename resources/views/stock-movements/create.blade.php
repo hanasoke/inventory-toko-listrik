@@ -99,7 +99,7 @@
                             @enderror
                         </div>
 
-                        <button class="btn btn-primary">
+                        <button class="btn btn-primary float-end">
                             Simpan Transaksi
                         </button>
                         <a href="{{ route('stock-movements.index') }}"
