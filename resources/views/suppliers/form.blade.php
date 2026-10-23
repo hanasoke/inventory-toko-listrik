@@ -95,12 +95,10 @@
 
                     <hr class="my-4">
 
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary float-end">
                         Simpan Supplier
                     </button>
-
-                    <a href="{{ route('suppliers.index') }}"
-                        class="btn btn-secondary">
+                    <a href="{{ route('suppliers.index') }}" class="btn btn-secondary">
                         Kembali
                     </a>
                 </form>
