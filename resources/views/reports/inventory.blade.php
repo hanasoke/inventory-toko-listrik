@@ -3,64 +3,52 @@
 
 @section('content')
 <div class="container py-4">
-    <h3>Laporan Pembelian</h3>
-    <p class="text-muted">
-        Filter transaksi berdasarkan tanggal dan supplier.
-    </p>
+    <h3>Laporan Inventaris</h3>
+    <p class="text-muted">Ringkasan kondisi persediaan barang.</p>
 
-    <form method="GET"
-          action="{{ route('reports.purchases') }}"
-          class="card card-body mb-4">
-        <div class="row g-3 align-items-end">
-            <div class="col-md-3">
-                <label class="form-label">Tanggal Mulai</label>
-                <input type="date"
-                       name="start_date"
-                       value="{{ request('start_date') }}"
-                       class="form-control">
-            </div>
-
-            <div class="col-md-3">
-                <label class="form-label">Tanggal Akhir</label>
-                <input type="date"
-                       name="end_date"
-                       value="{{ request('end_date') }}"
-                       class="form-control">
-            </div>
-
-            <div class="col-md-3">
-                <label class="form-label">Supplier</label>
-                <select name="supplier_id" class="form-select">
-                    <option value="">Semua supplier</option>
-                    @foreach ($suppliers as $supplier)
-                        <option value="{{ $supplier->id }}"
-                            @selected(request('supplier_id') == $supplier->id)>
-                            {{ $supplier->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="col-md-3 d-flex gap-2">
-                <button class="btn btn-primary">Filter</button>
-                <a href="{{ route('reports.purchases') }}"
-                   class="btn btn-outline-secondary">Reset</a>
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="text-muted">Jenis Produk</div>
+                    <h3>{{ $totalProducts }}</h3>
+                </div>
             </div>
         </div>
-    </form>
 
-    <div class="card mb-3">
-        <div class="card-body">
-            <div class="text-muted">Total pembelian sesuai filter</div>
-            <h4>
-                Rp{{ number_format((float) $totalPurchase, 0, ',', '.') }}
-            </h4>
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="text-muted">Total Unit</div>
+                    <h3>{{ number_format($totalUnits) }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="text-muted">Stok Minimum</div>
+                    <h3 class="text-danger">{{ $lowStockCount }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="text-muted">Estimasi Nilai Stok</div>
+                    <h5>
+                        Rp{{ number_format((float) $inventoryValue, 0, ',', '.') }}
+                    </h5>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="card">
         <div class="card-header d-flex justify-content-between">
-            <span>Daftar Transaksi Pembelian</span>
+            <span>Daftar Persediaan</span>
             <button onclick="window.print()"
                     class="btn btn-sm btn-outline-primary">
                 Cetak Laporan
@@ -71,32 +59,40 @@
             <table class="table table-striped align-middle mb-0">
                 <thead>
                     <tr>
-                        <th>Tanggal</th>
-                        <th>Faktur</th>
-                        <th>Supplier</th>
-                        <th>Petugas</th>
-                        <th class="text-end">Total</th>
+                        <th>SKU</th>
+                        <th>Nama Produk</th>
+                        <th>Kategori</th>
+                        <th>Satuan</th>
+                        <th class="text-end">Stok</th>
+                        <th class="text-end">Minimum</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($purchases as $purchase)
+                    @forelse ($products as $product)
                         <tr>
-                            <td>{{ $purchase->purchase_date->format('d-m-Y') }}</td>
+                            <td>{{ $product->sku }}</td>
+                            <td>{{ $product->name }}</td>
+                            <td>{{ $product->category->name ?? '-' }}</td>
+                            <td>{{ $product->unit }}</td>
+                            <td class="text-end">{{ $product->stock }}</td>
+                            <td class="text-end">{{ $product->min_stock }}</td>
                             <td>
-                                <a href="{{ route('purchases.show', $purchase) }}">
-                                    {{ $purchase->invoice_number }}
-                                </a>
-                            </td>
-                            <td>{{ $purchase->supplier->name }}</td>
-                            <td>{{ $purchase->user->name }}</td>
-                            <td class="text-end">
-                                Rp{{ number_format((float) $purchase->total, 0, ',', '.') }}
+                                @if ($product->stock <= $product->min_stock)
+                                    <span class="badge text-bg-danger">
+                                        Stok menipis
+                                    </span>
+                                @else
+                                    <span class="badge text-bg-success">
+                                        Aman
+                                    </span>
+                                @endif
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="text-center">
-                                Tidak ada transaksi pada filter ini.
+                            <td colspan="7" class="text-center">
+                                Belum ada produk.
                             </td>
                         </tr>
                     @endforelse
@@ -104,15 +100,11 @@
             </table>
         </div>
     </div>
-
-    <div class="mt-3">
-        {{ $purchases->links() }}
-    </div>
 </div>
 
 <style>
 @media print {
-    nav, form, .btn, button {
+    nav, .btn, button {
         display: none !important;
     }
 

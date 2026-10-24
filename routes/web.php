@@ -73,18 +73,18 @@ Route::post('/stock-movements', [
 
 Route::middleware('auth')->group(function() {
     Route::resource('suppliers', SupplierController::class);
-});
 
-Route::resource('purchases', PurchaseController::class)
-    ->only(['index', 'create', 'store', 'show']);
-
-Route::prefix('reports')
+    Route::prefix('reports')
     ->name('reports.')
     ->controller(ReportController::class)
     ->group(function() {
         Route::get('/inventory', 'inventory')
             ->name('inventory');
 
-        Route::get('/purchases', 'purchase')
+        Route::get('/purchases', 'purchases')
             ->name('purchases');
     });
+});
+
+Route::resource('purchases', PurchaseController::class)
+    ->only(['index', 'create', 'store', 'show']);

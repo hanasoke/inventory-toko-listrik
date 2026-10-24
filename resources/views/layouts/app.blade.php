@@ -42,6 +42,13 @@
                 <a class="nav-link {{ request()->routeIs('purchases.*') ? 'active' : '' }}" href="{{ route('purchases.index') }}">
                     Pembelian
                 </a>
+
+                <a class="nav-link {{ request()->routeIs('reports.inventory') ? 'active' : '' }}" href="{{ route('reports.inventory') }}">
+                    Laporan Inventaris
+                </a>
+                <a class="nav-link {{ request()->routeIs('reports.purchases') ? 'active' : '' }}" href="{{ route('reports.purchases') }}">
+                    Laporan Pembelian
+                </a>
             </div>
 
             <div class="ms-auto text-white">

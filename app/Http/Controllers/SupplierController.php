@@ -94,6 +94,15 @@ class SupplierController extends Controller
      */
     public function destroy(Supplier $supplier)
     {
+        if ($supplier->purchases()->exists()) {
+            return redirect()
+                ->route('suppliers.index')
+                ->with(
+                    'error',
+                    'Supplier tidak dapat dihapus karena sudah memiliki transaksi pembelian.'
+                );
+        }
+
         $supplier->delete();
 
         return redirect()
