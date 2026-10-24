@@ -87,4 +87,4 @@ Route::prefix('reports')
 
         Route::get('/purchases', 'purchase')
             ->name('purchases');
-    })
+    });
