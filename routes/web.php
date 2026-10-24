@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\StockMovementController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\ReportController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -76,3 +77,14 @@ Route::middleware('auth')->group(function() {
 
 Route::resource('purchases', PurchaseController::class)
     ->only(['index', 'create', 'store', 'show']);
+
+Route::prefix('reports')
+    ->name('reports.')
+    ->controller(ReportController::class)
+    ->group(function() {
+        Route::get('/inventory', 'inventory')
+            ->name('inventory');
+
+        Route::get('/purchases', 'purchase')
+            ->name('purchases');
+    })
