@@ -24,19 +24,19 @@
 
         <div class="collapse navbar-collapse" id="navbarMenu">
             <div class="navbar-nav">
-                <a class="nav-link" href="{{ route('dashboard') }}">
+                <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
                     Dashboard
                 </a>
-                <a class="nav-link" href="{{ route('products.index') }}">
+                <a class="nav-link {{ request()->routeIs('products.*') ? 'active' : '' }}" href="{{ route('products.index')}}">
                     Barang
                 </a>
-                <a class="nav-link" href="{{ route('categories.index') }}">
+                <a class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}" href="{{ route('categories.index') }}">
                     Kategori
                 </a>
-                <a class="nav-link" href="{{ route('stock-movements.index') }}">
+                <a class="nav-link {{ request()->routeIs('stock-movements.*') ? 'active' : '' }}" href="{{ route('stock-movements.index') }}">
                     Transaksi Stok
                 </a>
-                <a class="nav-link" href="{{ route('suppliers.index') }}">
+                <a class="nav-link {{ request()->routeIs('suppliers.*') ? 'active' : '' }}" href="{{ route('suppliers.index') }}">
                     Supplier
                 </a>
                 <a class="nav-link {{ request()->routeIs('purchases.*') ? 'active' : '' }}" href="{{ route('purchases.index') }}">
