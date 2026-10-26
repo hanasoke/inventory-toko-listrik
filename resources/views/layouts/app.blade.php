@@ -51,10 +51,10 @@
                 </a>
 
                 <a class="nav-link {{ request()->routeIs('reports.inventory') ? 'active' : '' }}" href="{{ route('reports.inventory') }}">
-                    Laporan Inventaris
+                    <i class="bi bi-archive"></i> Laporan Inventaris
                 </a>
                 <a class="nav-link {{ request()->routeIs('reports.purchases') ? 'active' : '' }}" href="{{ route('reports.purchases') }}">
-                    Laporan Pembelian
+                    <i class="bi bi-cash-coin"></i> Laporan Pembelian
                 </a>
             </div>
 
