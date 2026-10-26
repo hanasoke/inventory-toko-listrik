@@ -8,13 +8,20 @@
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
         rel="stylesheet">
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="icon" type="image/png" href="{{ asset('images/light_tools.png') }}">
 </head>
 <body class="bg-light">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ route('dashboard') }}">
-            Light Tools
+            <i class="bi bi-shop-window fs-3"></i>
+            <span class="fw-bold">Light Tools</span>
+            <i class="bi bi-lightning-charge-fill text-warning"></i>
         </a>
 
         <button class="navbar-toggler" type="button"
