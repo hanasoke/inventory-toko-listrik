@@ -11,7 +11,14 @@
         <div class="card border-0 shadow-sm">
             <div class="card-body">
                 <p class="text-secondary mb-1">Total Produk</p>
-                <h3>{{ $totalProducts }}</h3>
+                <div class="row">
+                    <div class="col">
+                        <h3>{{ $totalProducts }}</h3> 
+                    </div>
+                    <div class="col">
+                        <i class="bi bi-archive-fill float-end"></i>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -20,7 +27,14 @@
         <div class="card border-0 shadow-sm">
             <div class="card-body">
                 <p class="text-secondary mb-1">Kategori</p>
-                <h3>{{ $totalCategories }}</h3>
+                <div class="row">
+                    <div class="col">
+                        <h3>{{ $totalCategories }}</h3>
+                    </div>
+                    <div class="col">
+                        <i class="bi bi-bookmark-check-fill float-end"></i>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -29,7 +43,14 @@
         <div class="card border-0 shadow-sm">
             <div class="card-body">
                 <p class="text-secondary mb-1">Total Stok</p>
-                <h3>{{ number_format($totalStock) }}</h3>
+                <div class="row">
+                    <div class="col">
+                        <h3>{{ number_format($totalStock) }}</h3>
+                    </div>
+                    <div class="col">
+                        <i class="bi bi-diagram-2-fill float-end"></i>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -38,7 +59,15 @@
         <div class="card border-0 shadow-sm">
             <div class="card-body">
                 <p class="text-secondary mb-1">Stok Menipis</p>
-                <h3 class="text-danger">{{ $lowStock }}</h3>
+                
+                <div class="row">
+                    <div class="col">
+                        <h3 class="text-danger">{{ $lowStock }}</h3>
+                    </div>
+                    <div class="col">
+                        <i class="bi bi-diagram-2 float-end"></i>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
