@@ -32,22 +32,22 @@
         <div class="collapse navbar-collapse" id="navbarMenu">
             <div class="navbar-nav">
                 <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
-                    Dashboard
+                    <i class="bi bi-speedometer"></i> Dashboard
                 </a>
                 <a class="nav-link {{ request()->routeIs('products.*') ? 'active' : '' }}" href="{{ route('products.index')}}">
-                    Barang
+                    <i class="bi bi-box"></i> Barang
                 </a>
                 <a class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}" href="{{ route('categories.index') }}">
-                    Kategori
+                    <i class="bi bi-bookmark-check-fill"></i> Kategori
                 </a>
                 <a class="nav-link {{ request()->routeIs('stock-movements.*') ? 'active' : '' }}" href="{{ route('stock-movements.index') }}">
-                    Transaksi Stok
+                    <i class="bi bi-credit-card-2-back"></i> Transaksi Stok
                 </a>
                 <a class="nav-link {{ request()->routeIs('suppliers.*') ? 'active' : '' }}" href="{{ route('suppliers.index') }}">
-                    Supplier
+                    <i class="bi bi-box2-fill"></i> Supplier
                 </a>
                 <a class="nav-link {{ request()->routeIs('purchases.*') ? 'active' : '' }}" href="{{ route('purchases.index') }}">
-                    Pembelian
+                    <i class="bi bi-bag"></i> Pembelian
                 </a>
 
                 <a class="nav-link {{ request()->routeIs('reports.inventory') ? 'active' : '' }}" href="{{ route('reports.inventory') }}">
